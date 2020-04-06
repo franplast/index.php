@@ -1,0 +1,74 @@
+/***SECTION***/
+.catalog-section-container .catalog-section{
+	margin-top: 32px;	
+}
+
+.container-ws .catalog-section{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+/***SECTION_MORE***/
+.catalog-section-more{
+	padding-bottom: 22px;
+}
+
+.container-ws .catalog-section-more{
+	padding: 0;
+}
+
+.catalog-section-more .btn{
+	width: 100%;
+	height: 48px;
+}
+
+/***SECTION_DESC***/
+.catalog-section-desc{
+	margin-top: 46px;
+}
+
+/***PHONES***/
+@media(max-width: 991px){
+	/***SECTION***/
+	.catalog-section:before{
+		height: 1px;
+		display: block;
+		margin: 0 -18px;
+		content: "";
+		background: #e8edef;
+	}
+
+	.catalog-section-list + .catalog-section:before{
+		content: none;
+	}
+	
+	.catalog-section-container .catalog-section{
+		margin: 0;	
+	}
+
+	.catalog-section-prev + .catalog-section{
+		margin-top: 32px;
+	}
+	
+	.container-ws .catalog-section{
+		display: block;
+	}
+	
+	/***SECTION_MORE***/
+	.catalog-section-more{
+		margin: 0 -18px;
+		padding: 0;
+	}
+
+	.catalog-section-more .btn{
+		-moz-border-radius: 0;
+		-webkit-border-radius: 0;
+		-khtml-border-radius: 0;
+		border-radius: 0;
+	}
+
+	/***SECTION_DESC***/
+	.catalog-section-desc{
+		margin-top: 14px;
+	}
+}

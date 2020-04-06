@@ -1,0 +1,195 @@
+.catalog-sections-wrapper{
+	width: 100%;
+	background: #f1f6f7;
+}
+
+.catalog-sections-wrapper .catalog-sections{
+	padding-top: 40px;
+	padding-bottom: 34px;
+}
+
+.catalog-sections-wrapper .catalog-sections .h1{
+	padding-bottom: 32px;
+}
+
+.catalog-section-item{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 24px;
+	padding: 18px 18px 13px;
+	position: relative;	
+	border: 1px solid #e8edef;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	border-radius: 4px;
+	background: #fff;
+}
+
+.catalog-section-item:link,
+.catalog-section-item:visited{
+	text-decoration: none;
+	-webkit-transition: all 0.15s ease 0s;
+	-moz-transition: all 0.15s ease 0s;
+	-o-transition: all 0.15s ease 0s;
+	transition: all 0.15s ease 0s;
+}
+
+.bx-no-touch .catalog-section-item:hover,
+.bx-touch .catalog-section-item:active{
+	-webkit-box-shadow: 0 0 36px rgba(61, 75, 82, 0.16);
+	-moz-box-shadow: 0 0 36px rgba(61, 75, 82, 0.16);
+	box-shadow: 0 0 36px rgba(61, 75, 82, 0.16);
+	z-index: 202;
+}
+
+.catalog-section-item__count{
+	position: absolute;
+	right: 11px;
+	top: 11px;
+	padding: 0 5px;
+	font-size: 11px;	
+	color: #8ea6ab;
+	line-height: 16px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	border-radius: 3px;
+	background: #e3ecef;
+	z-index: 200;
+	-webkit-transition: all 0.15s ease 0s;
+	-moz-transition: all 0.15s ease 0s;
+	-o-transition: all 0.15s ease 0s;
+	transition: all 0.15s ease 0s;
+}
+
+.bx-no-touch .catalog-section-item:hover .catalog-section-item__count,
+.bx-touch .catalog-section-item:active .catalog-section-item__count{
+	color: #fff;
+	background: #6e858a;
+}
+
+.catalog-section-item__graph{
+	width: 100%;
+	height: 134px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.catalog-section-item__graph > i{
+	font-size: 90px;
+	color: #55686e;
+}
+
+.catalog-section-item__graph > img{
+	width: auto;
+	height: auto;
+	max-width: 134px;
+	max-height: 134px;
+}
+
+.catalog-section-item__title{
+	height: 38px;
+	margin: 8px -8px 0px;	
+	overflow: hidden;
+	color: #3d4b52;
+	text-align: center;	
+	-webkit-transition: all 0.15s ease 0s;
+	-moz-transition: all 0.15s ease 0s;
+	-o-transition: all 0.15s ease 0s;
+	transition: all 0.15s ease 0s;
+}
+
+.bx-no-touch .catalog-section-item:hover .catalog-section-item__title,
+.bx-touch .catalog-section-item:active .catalog-section-item__title{
+	color: #6639b6;
+}
+
+/***PHONES***/
+@media(max-width: 991px){
+	.catalog-sections-wrapper .catalog-sections{
+		padding: 0;
+	}
+	
+	.catalog-sections-wrapper .catalog-sections .h1{
+		padding: 19px 18px 18px;
+		font-family: "Museo Sans Cyrl 300", sans-serif;
+		font-size: 16px;		
+		line-height: 19px;
+	}
+
+	.catalog-sections [class*="col-"]{
+		padding: 0;
+	}
+	
+	.catalog-section-item{
+		flex-direction: row;
+		margin: 0;
+		padding: 12px 18px;
+		border: none;
+		border-bottom: 1px solid #e8edef;
+		-moz-border-radius: 0;
+		-webkit-border-radius: 0;
+		-khtml-border-radius: 0;
+		border-radius: 0;		
+		-webkit-transition: none;
+		-moz-transition: none;
+		-o-transition: none;
+		transition: none;
+	}
+	
+	.bx-no-touch .catalog-section-item:hover,
+	.bx-touch .catalog-section-item:active{
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+	}
+
+	.catalog-section-item__count{
+		right: 12px;
+	}
+	
+	.catalog-section-item__graph{
+		width: 50px;
+		min-width: 50px;
+		height: 50px;
+		margin-right: 12px;
+	}
+
+	.catalog-section-item__graph > i{
+		font-size: 36px;
+	}
+
+	.catalog-section-item__graph > img{
+		max-width: 36px;
+		max-height: 36px;
+	}
+
+	.catalog-section-item__title{		
+		width: 100%;
+		height: auto;
+		align-self: center;
+		margin: 0;
+		overflow: visible;
+		text-align: left;
+	}
+}
+
+/***DESKTOPS***/
+@media(min-width: 992px) and (max-width: 1271px){
+	.catalog-section-item__graph{
+		height: 94px;
+	}
+
+	.catalog-section-item__graph > i{
+		font-size: 72px;
+	}
+
+	.catalog-section-item__graph > img{		
+		max-width: 94px;
+		max-height: 94px;
+	}
+}

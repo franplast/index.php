@@ -1,0 +1,104 @@
+.news-container .news{
+	margin-top: 32px;
+}
+
+.news-container .description{
+	margin-top: 46px;
+}
+
+.news-container > div:first-child{
+	margin-top: 0;
+}
+/***ARTICLES***/
+.news-container .articles-links{
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: -6px;
+	margin-top: 26px;
+}
+
+.news-container .articles-link{
+	margin-left: 6px;
+	margin-top: 6px;
+	padding: 9px 16px 8px;	
+	white-space: nowrap;
+	border: 2px solid #e3ecef;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	border-radius: 5px;
+	cursor: pointer;
+	-webkit-transition: all 0.15s ease 0s;
+	-moz-transition: all 0.15s ease 0s;
+	-o-transition: all 0.15s ease 0s;
+	transition: all 0.15s ease 0s;
+}
+
+.news-container .articles-link:link,
+.news-container .articles-link:visited{
+	color: #3d4b52;
+	text-decoration: none;
+}
+
+.bx-no-touch .news-container .articles-link:hover,
+.bx-touch .news-container .articles-link:active{
+	border-color: #8ea6ab;
+	background: #e3ecef;
+}
+
+.news-container .articles-link.active,
+.bx-no-touch .news-container .articles-link.active:hover,
+.bx-touch .news-container .articles-link.active:active{
+	border-color: #6639b6;
+	background: rgba(102, 57, 182, 0.16);
+}
+
+.news-container .articles-link > span{	
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 6px;
+	margin-top: -2px;
+	padding: 2px 5px 1px;
+	font-size: 11px;
+	color: #6e858a;
+	line-height: 13px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	border-radius: 5px;
+	background: #d0e0e3;
+}
+
+.news-container .articles-link.active > span,
+.bx-no-touch .news-container .articles-link.active:hover > span,
+.bx-touch .news-container .articles-link.active:active > span{
+	color: #fff;
+	background: #8ea6ab;
+}
+
+.news-container .articles-items{
+	margin-top: 32px;
+}
+
+.news-container .description{
+	margin-top: 46px;
+}
+
+.news-container > div:first-child{
+	margin-top: 0;
+}
+
+.news-container .articles-links:first-child{
+	margin-top: -6px;
+}
+
+/***PHONES***/
+@media(max-width: 991px){
+	.news-container .news{
+		margin-top: 18px;
+	}
+
+	.news-container .description{
+		margin-top: 14px;
+	}
+}

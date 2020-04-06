@@ -1,0 +1,91 @@
+/***CUSTOM CSS RULES FOR YOUR SITE***/
+
+body{
+	-webkit-user-select: text;
+	-moz-user-select: text;
+	-o-user-select: text;	
+	user-select: text;	
+}
+
+.contest .promotions-item-date,.contest .promotions-item-detail-date {display: none;}
+
+
+/* меню №2 */
+@media ( min-width: 1043px ) and (max-width:  1177px) {
+	.top-panel__contacts-caption {
+		display: none;
+	}
+}
+
+.slide-menu-option-2 .top-panel__menu-icon-container { cursor: pointer; }
+.title-menu {display: none;}
+@media (min-width: 992px) {
+	.feedback button {font-size: 14px;}
+}
+.top-panel__logo { padding-left: 0px; }
+@media (min-width: 1043px) {
+	.icon-menu { display: none; }
+	.title-menu {display: block;}
+	.slide-menu-option-2 .top-panel__menu-icon-container {
+		color: white;
+		font-size: 30px;
+		padding-right: 20px;
+		padding-left: 20px;
+		min-width: unset;
+/*		width: 150px;
+	 	transition: all .5s;
+	 	transition-delay: .3s;*/
+	}
+	.slide-menu-option-2 .top-panel__menu-icon-container.open { min-width: 278px; }
+
+
+	.slide-menu-option-2 .page-container-wrapper { margin-left: 0px; }
+	.slide-menu { width: 278px; /*transition: all .5s;*/}
+	div.slide-menu, div.slide-menu ul {
+		visibility: hidden;
+	}
+	.show div.slide-menu, .show div.slide-menu ul{
+		visibility: visible;
+	}
+}
+.slide-menu-option-2 .page-container-wrapper:before { background: unset; content: none;}
+.slide-menu { background: #fff; border-top: none; }
+.bx-no-touch .slide-menu li:hover > a,
+.bx-touch .slide-menu li:active > a,
+.slide-menu li.hover > a,
+.slide-menu li.active > a {
+    background-color: #f1f6f7;
+}
+.slide-menu-icon, .slide-menu-pic {	margin-right: 18px; }
+.slide-menu-text { display: inline-block; }
+.slide-menu-arrow { display: flex; }
+.slide-menu li > a { justify-content: flex-start; padding: 13px 38px 13px 18px; }
+
+.slide-menu li {border-color: #e3ecef;}
+
+/* Конец меню №2 */
+@media (max-width: 1042px) {
+	.mobile_menu {
+		display: block;
+	}
+	.decktop_menu {
+		display: none;
+	}
+}
+@media (min-width: 1042.1px) {
+	.mobile_menu {
+		display: none;
+	}
+	.decktop_menu {
+		display: block;
+	}
+}
+
+/*.slide-menu-option-2 .brands-detail-tabs-container {
+    width: -webkit-calc(100vw - 72px);
+    width: calc(100vw - 72px);
+    margin-left: -moz-calc((100vw - 72px - 100%) / -2);
+    margin-left: -webkit-calc((100vw - 72px - 100%) / -2);
+    margin-left: calc((100vw - 72px - 100%) / -2);
+}*/
+.objects-detail-section-link {white-space: normal;}

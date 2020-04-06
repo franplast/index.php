@@ -1,0 +1,189 @@
+	/***SECTION_PANEL***/
+	.catalog-section-panel-wrapper{
+		width: 100%;
+		background: #f1f6f7;
+	}
+
+	.catalog-section-panel.fixed{
+		position: fixed;
+		left: 0;
+		right: 0;
+		-webkit-box-shadow: 0 0 32px rgba(61, 75, 82, 0.16);
+		-moz-box-shadow: 0 0 32px rgba(61, 75, 82, 0.16);
+		box-shadow: 0 0 32px rgba(61, 75, 82, 0.16);
+		background: #f1f6f7;
+		z-index: 203;
+	}
+
+	.slide-menu-option-1-active .catalog-section-panel.fixed{
+		left: 278px;
+	}
+
+	.slide-menu-option-2 .catalog-section-panel.fixed{
+		left: 72px;
+	}
+
+	.catalog-section-panel-block{
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.catalog-section-panel.fixed .catalog-section-panel-block{
+		width: 1176px;
+		margin: 0 auto;
+	}
+
+	.container-ws .catalog-section-panel.fixed .catalog-section-panel-block{
+		width: 100%;
+		margin: 0;
+		padding: 0 32px;
+	}
+
+	/***SECTION_TOOGLE***/
+	/***SECTION_FILTER***/
+	/***SECTION_SORT***/
+	.catalog-section-toggle-filter{
+		display: flex;
+		align-items: center;
+	}
+
+	.catalog-section-toggle{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.catalog-section-toggle > input{
+		display: none;
+	}
+
+	.catalog-section-toggle > span,
+	.catalog-section-toggle > input:checked + span + label + span{
+		color: #78909c;
+	}
+
+	.catalog-section-toggle > label{
+		width: 36px;
+		max-width: 36px;
+		height: 18px;
+		display: block;
+		margin: 0 12px;
+		position: relative;
+		-moz-border-radius: 9px;
+		-webkit-border-radius: 9px;
+		-khtml-border-radius: 9px;
+		border-radius: 9px;
+		background: #d0e0e3;
+		cursor: pointer;
+	}
+
+	.catalog-section-toggle > label:after{
+		width: 18px;
+		height: 18px;
+		position: absolute;
+		right: 0;
+		top: 0;
+		content: "";
+		-moz-border-radius: 9px;
+		-webkit-border-radius: 9px;
+		-khtml-border-radius: 9px;
+		border-radius: 9px;
+		background: #6639b6;
+		-webkit-transition: all 0.3s ease 0s;
+		-moz-transition: all 0.3s ease 0s;
+		-o-transition: all 0.3s ease 0s;
+		transition: all 0.3s ease 0s;
+	}
+
+	.catalog-section-toggle > input:checked + span + label:after{
+		right: -moz-calc(100% - 18px);
+		right: -webkit-calc(100% - 18px);
+		right: calc(100% - 18px);
+	}
+
+	.catalog-section-toggle > span + label + span,
+	.catalog-section-toggle > input:checked + span{
+		color: #263238;
+	}
+
+	.catalog-section-toggle + .catalog-section-filter-container{
+		margin-left: 24px;
+	}
+
+	.catalog-section-filter{
+		padding: 16px 24px;
+		cursor: pointer;
+	}
+
+	.catalog-section-filter-block{
+		display: table;
+	}
+
+	.catalog-section-filter-block > i,
+	.catalog-section-filter-block > span{
+		display: table-cell;
+		vertical-align: middle;
+		-webkit-transition: all 0.15s ease 0s;
+		-moz-transition: all 0.15s ease 0s;
+		-o-transition: all 0.15s ease 0s;
+		transition: all 0.15s ease 0s;
+	}
+
+	.catalog-section-filter-block > i{
+		padding-right: 12px;
+		font-size: 24px;
+		color: #8ea6ab;
+	}
+
+	.bx-no-touch .catalog-section-filter:hover .catalog-section-filter-block > i,
+	.bx-touch .catalog-section-filter:active .catalog-section-filter-block > i,
+	.bx-no-touch .catalog-section-filter:hover .catalog-section-filter-block > span,
+	.bx-touch .catalog-section-filter:active .catalog-section-filter-block > span{
+		color: #6639b6;
+	}
+
+	.catalog-section-sort{
+		padding: 16px 13px 16px 24px;
+		position: relative;
+		cursor: pointer;
+	}
+
+	.catalog-section-sort-block{
+		display: table;
+	}
+
+	.catalog-section-sort-text,
+	.catalog-section-sort-arrow{
+		display: table-cell;
+		vertical-align: middle;
+	}
+
+	.catalog-section-sort-text{
+		padding-right: 16px;
+		-webkit-transition: all 0.15s ease 0s;
+		-moz-transition: all 0.15s ease 0s;
+		-o-transition: all 0.15s ease 0s;
+		transition: all 0.15s ease 0s;
+	}
+
+	.bx-no-touch .catalog-section-sort:hover .catalog-section-sort-text,
+	.bx-touch .catalog-section-sort:active .catalog-section-sort-text{
+		color: #6639b6;
+	}
+
+	.catalog-section-sort-arrow i{
+		font-size: 16px;
+		color: #b2c7cb;
+		-webkit-transition: all 0.15s ease 0s;
+		-moz-transition: all 0.15s ease 0s;
+		-o-transition: all 0.15s ease 0s;
+		transition: all 0.15s ease 0s;
+	}
+
+	.bx-no-touch .catalog-section-sort:hover .catalog-section-sort-arrow i,
+	.bx-touch .catalog-section-sort:active .catalog-section-sort-arrow i{
+		color: #6639b6;
+	}
+

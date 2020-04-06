@@ -1,0 +1,22 @@
+.d-flex {
+	display: flex;
+} 
+.flex-wrap {
+	flex-wrap: wrap;
+}
+.container_gall {
+	margin-left: -10px;
+	margin-right: -10px;
+}
+.container_gall_item {
+	padding-left: 10px!important;
+	padding-right: 10px!important;
+	margin-bottom: 20px;
+}
+.container_gall_item a {
+	display: block;
+	width: 100%;
+}
+.container_gall_item img {
+	width: 100%
+}

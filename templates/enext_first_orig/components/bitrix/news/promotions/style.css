@@ -1,0 +1,26 @@
+.promotions-container .preview{
+	margin-top: 22px;
+}
+
+.promotions-container .promotions,
+.promotions-container .description{
+	margin-top: 46px;
+}
+
+.promotions-container > div:first-child,
+.promotions-container > div[id*="bxdynamic_"]:first-child + .promotions{
+	margin-top: 0;
+}
+
+/***PHONES***/
+@media(max-width: 991px){
+	.promotions-container{
+		margin-top: -32px;
+	}
+
+	.promotions-container .preview,
+	.promotions-container .promotions,
+	.promotions-container .description{
+		margin-top: 14px;
+	}
+}

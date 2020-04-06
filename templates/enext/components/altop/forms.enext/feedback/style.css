@@ -1,0 +1,12 @@
+.mt-20 {
+	margin-top: 20px;
+}
+.form-group .checkbox input:checked + i.form-control-feedback + .check-cont .check i {
+	display: inline-block;
+}
+.form-group .checkbox input:checked + i.form-control-feedback {
+	visibility: hidden;
+}
+input:checked + i.form-control-feedback + .check-cont .check {
+	background-color: #003eb8;
+}

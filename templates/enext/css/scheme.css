@@ -1,0 +1,223 @@
+/*
+* Main stylesheet for css.
+* Produced by Progect24
+*/
+
+
+.symbols-box__color {
+		border-radius: 5px;
+		display: inline-block;
+		height: 23px;
+		margin: 3px 10px 0 0;
+		width: 45px;
+}
+
+.wrapper {
+    margin: 0 auto;
+    position: relative;
+    width: 900px;
+}
+.tooltype {
+    background-color: rgba(255, 255, 255, 0.85);
+    border: 1px solid #000;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 5px 0 10px 0 rgba(0, 0, 0, 0.35);
+    -moz-box-shadow:    5px 0 10px 0 rgba(0, 0, 0, 0.35);
+    box-shadow: 5px 0 10px 0 rgba(0,0,0,0.35);
+    position: relative;
+    padding: 5px;
+    width: 200px;
+}
+.tooltype .end {
+    background: url("../images/tooltype_arrow.png") no-repeat top center;
+    bottom: -7px;
+    height: 7px;
+    margin: 0 6px 0 0;
+    position: absolute;
+    right: 0;
+    width: 6px;
+}
+.scheme_title {
+    margin-bottom: 20px;
+}
+.scheme-box__wrap {
+    overflow: hidden;
+}
+.scheme-box {
+/*     float: left; */ 
+	/* margin: 0 10px; */
+    
+}
+
+.scheme-box__wrap .scheme-box {
+    float: left;
+	width: 317px;
+	margin:0 80px;
+}
+.scheme-box__scheme {
+    border: 3px solid #E7E7E7;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    height: 130px;
+    padding: 10px;
+    position: relative;
+    text-align: center;
+}
+.scheme-box__zoom {
+    bottom: 5px;
+    position: absolute;
+    right: 5px;
+}
+.g-icon-zoom {
+    background: none repeat scroll 0 0 rgba(255,255,255,0.75);
+    border: 1px solid #DBDBDB;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    height: 25px;
+    padding: 5px 7px;
+    width: 25px;
+}
+.container {
+    /*display: none;*/
+}
+.g-icon-zoom__icon {
+    background: url("../images/icons-sdd04f58ad9.png") no-repeat scroll 4px 0;
+    bottom: 0;
+    cursor: pointer;
+    height: 16px;
+    margin: 0 1px 3px 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    width: 22px;
+}
+.scheme-box__title {
+    font-size: 13px;
+    height: 30px;
+    padding-top: 10px;
+    text-align: center;
+}
+.pic_title {
+    background-color: rgba(255,255,255,0.35);
+    bottom: 0;
+    display: block;
+    padding: 10px 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+.symbols-box__wrap-top {overflow: hidden;width:100%;}
+.symbols-box {
+    float: left;
+    margin-right: 20px;
+    width: 317px;
+}
+.symbols-box__color {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    height: 23px;
+    margin: 3px 10px 0 0;
+    width: 45px;
+}
+.symbols-box__text {
+    font-size: 13px;
+    line-height: 1.2;
+    vertical-align: middle;
+}
+
+.tabs {
+    position: relative;
+    margin: 0 auto;
+    width: 650px;}
+.tabs label {
+    display: block;
+    float: left;
+    background: #ffffff;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQlIiBzdG9wLWNvbG9yPSIjZWZmMGY0IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2RkZGVlMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+    background: -moz-linear-gradient(top,  #ffffff 0%, #eff0f4 4%, #dddee0 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(4%,#eff0f4), color-stop(100%,#dddee0));
+    background: -webkit-linear-gradient(top,  #ffffff 0%,#eff0f4 4%,#dddee0 100%);
+    background: -o-linear-gradient(top,  #ffffff 0%,#eff0f4 4%,#dddee0 100%);
+    background: -ms-linear-gradient(top,  #ffffff 0%,#eff0f4 4%,#dddee0 100%);
+    background: linear-gradient(to bottom,  #ffffff 0%,#eff0f4 4%,#dddee0 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#dddee0',GradientType=0 );
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+    border-right: 1px solid #f3f3f3;
+    border-left: 1px solid #ccc;
+    color: #555;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    position: relative;
+    top: 2px;
+    width: 300px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: #fff 0 1px 0;
+    z-index: 1;}
+.tabs input {
+    position: absolute;
+    left: -9999px;}
+#tab_1:checked  ~ #tab_l1,
+#tab_2:checked  ~ #tab_l2,
+#tab_3:checked  ~ #tab_l3 {
+    background: #fff;
+    border-color: #fff;
+    top: 0;
+    z-index: 3;}
+
+.tabs_cont {
+    background: #fff;
+    -moz-border-radius: 0 6px 6px 6px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    border-radius: 0 6px 6px 6px;
+    -moz-box-shadow: 0 -2px 3px -2px rgba(0,0,0,0.2), 2px 2px 2px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0 -2px 3px -2px rgba(0,0,0,0.2), 2px 2px 2px rgba(0,0,0,0.1);
+    box-shadow: 0 -2px 3px -2px rgba(0,0,0,0.2), 2px 2px 2px rgba(0,0,0,0.1);
+    padding: 20px 25px;
+    position: relative;
+    z-index: 2;
+    height: 400px;}
+.tabs_cont > div {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    opacity: 0;
+    -moz-transition: opacity .5s ease-in-out;
+    -webkit-transition: opacity .5s ease-in-out;
+    transition: opacity .5s ease-in-out;}
+
+#tab_1:checked ~ .tabs_cont #tab_c1,
+#tab_2:checked ~ .tabs_cont #tab_c2,
+#tab_3:checked ~ .tabs_cont #tab_c3 {
+    position: static;
+    left: 0;
+    opacity: 1;}
+#floor5, #floor1, #floor2, #floor3, #floor4 {
+	display: none;
+}
+.fancybox-content {
+	padding: 0!important;
+	background-color: none!important;
+}
+
+.border-scheme {
+    border: 3px solid #E7E7E7;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 10px;
+    position: relative;
+    text-align: center;
+}

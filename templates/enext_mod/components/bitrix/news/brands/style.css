@@ -1,0 +1,23 @@
+.brands-container .preview{
+	margin-top: 16px;
+}
+
+.brands-container .description{
+	margin-top: 46px;
+}
+
+.brands-container > div:first-child{
+	margin-top: 0;
+}
+
+/***PHONES***/
+@media(max-width: 991px){
+	.brands-container{
+		margin-top: -32px;
+	}
+
+	.brands-container .preview,
+	.brands-container .description{
+		margin-top: 14px;
+	}
+}

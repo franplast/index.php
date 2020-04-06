@@ -1,0 +1,63 @@
+      <div class="container_gall d-flex flex-wrap">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 container_gall_item">
+			<a href="https://via.placeholder.com/500/" data-fancybox="gall_group_1" data-caption="Описание Фото">
+				<img class="w-100" src="https://via.placeholder.com/200/" alt="Альтернативный текст">
+			</a>
+
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 container_gall_item">
+			<a href="https://via.placeholder.com/500/" data-fancybox="gall_group_1" data-caption="Описание Фото">
+				<img class="w-100" src="https://via.placeholder.com/200/" alt="Альтернативный текст">
+			</a>
+
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 container_gall_item">
+			<a href="https://via.placeholder.com/500/" data-fancybox="gall_group_1" data-caption="Описание Фото">
+				<img class="w-100" src="https://via.placeholder.com/200/" alt="Альтернативный текст">
+			</a>
+
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 container_gall_item">
+			<a href="https://via.placeholder.com/500/" data-fancybox="gall_group_1" data-caption="Описание Фото">
+				<img class="w-100" src="https://via.placeholder.com/200/" alt="Альтернативный текст">
+			</a>
+
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 container_gall_item">
+			<a href="https://via.placeholder.com/500/" data-fancybox="gall_group_1" data-caption="Описание Фото">
+				<img class="w-100" src="https://via.placeholder.com/200/" alt="Альтернативный текст">
+			</a>
+
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 container_gall_item">
+			<a href="https://via.placeholder.com/500/" data-fancybox="gall_group_1" data-caption="Описание Фото">
+				<img class="w-100" src="https://via.placeholder.com/200/" alt="Альтернативный текст">
+			</a>
+
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 container_gall_item">
+			<a href="https://via.placeholder.com/500/" data-fancybox="gall_group_1" data-caption="Описание Фото">
+				<img class="w-100" src="https://via.placeholder.com/200/" alt="Альтернативный текст">
+			</a>
+
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 container_gall_item">
+			<a href="https://via.placeholder.com/500/" data-fancybox="gall_group_1" data-caption="Описание Фото">
+				<img class="w-100" src="https://via.placeholder.com/200/" alt="Альтернативный текст">
+			</a>
+
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 container_gall_item">
+			<a href="https://via.placeholder.com/500/" data-fancybox="gall_group_1" data-caption="Описание Фото">
+				<img class="w-100" src="https://via.placeholder.com/200/" alt="Альтернативный текст">
+			</a>
+
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 container_gall_item">
+			<a href="https://via.placeholder.com/500/" data-fancybox="gall_group_1" data-caption="Описание Фото">
+				<img class="w-100" src="https://via.placeholder.com/200/" alt="Альтернативный текст">
+			</a>
+
+        </div>
+
+      </div>
