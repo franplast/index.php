@@ -92,14 +92,14 @@ function line_node($level,$ar,&$result){
     }
 }
 //построение дерева, вернет разделы с вложенными подразделами
-function find_node($dataset, $id, $name, $ind, $res = array(), $items = array())
+function find_node($dataset, $id, $name, $ind, $res = array())
 {
-    global $result; // иначе $result будет undefined
+    //global $result; // иначе $result будет undefined
     foreach ($dataset as $key => $value) {
         if ($key != $id) {
             //if (isset($dataset[$key]['SECTIONS'])) {
             //pre($dataset[$key]['SECTIONS']);
-            $r = find_node($dataset[$key]['SECTIONS'], $id, $name, $ind, $res, $items);
+            $r = find_node($dataset[$key]['SECTIONS'], $id, $name, $ind, $res);
             if (is_array($r)) {
                 //$dataset[$key]["SECTIONS"] = array();
                 $dataset[$key]["SECTIONS"] = $r;//array_replace($dataset[$key]["SECTIONS"],$r);
