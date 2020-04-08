@@ -17,7 +17,7 @@ $message =""; // Заполняем, если есть что сказать, н
 $arResult['STATUS'] = $status;
 $arResult['MASSAGE'] = $message;
 $arResult = [
-    'SECTIOMS' =>[
+    'SECTIONS' =>[
         [ 'ID' => 1,   "NAME" => 'test_1', 'DEPTH_LEVEL'=> 1 ],
         [ 'ID' => 2,   "NAME" => 'test_2', 'DEPTH_LEVEL'=> 1 ],
         [ 'ID' => 3,   "NAME" => 'test_2_1', 'DEPTH_LEVEL'=> 2, 'PARENT_ID'=>2 ],

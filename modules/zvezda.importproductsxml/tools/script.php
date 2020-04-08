@@ -55,13 +55,9 @@ class importProductsXml
                 $this->updateSku($offer, $SKU);
             }
             elseif( $tovar = $this->getSku($offer) ){
-
+                console.log();
             }
-
-
-
-
-        }
+        };
 
         private function getTovarProps(){
             if( !$this->tovarProps ){

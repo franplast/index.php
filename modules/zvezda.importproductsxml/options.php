@@ -10,6 +10,37 @@ if(!$USER->IsAdmin())
 // получаем настройки
 
 ?>
+<style>
+    .summ-info {
+        border: #f2dede solid 2px;
+        background-color: white;
+        padding: 5px 20px;
+        margin-bottom: 30px;
+    }
+    .step .content-block {
+        display: none;
+    }
+    .step.active .content-block {
+        display: block;
+    }
+
+    .sections .death-1 td:first-child {
+        padding-left: 5px;}
+    .sections .death-2 td:first-child {
+        padding-left: 10px;}
+    .sections .death-3 td:first-child {
+        padding-left: 15px;}
+    .sections .death-4 td:first-child {
+        padding-left: 20px;}
+    .sections .death-5 td:first-child {
+        padding-left: 30px;}
+
+</style>
+
+<section id="summ-info" class="summ-info">
+    <h2>Общая информация</h2>
+
+</section>
 <form action="">
 
     <div class="steps ">
@@ -18,48 +49,53 @@ if(!$USER->IsAdmin())
             В будущем здесь блок настроек. После первого заполнения скрыт по умолчанию
         </div>
 
-        <div class="step active get-file">
-            <div class="step__title">ШАГ 1: выбор файла</div>
-            <fieldset>
-                <legend>Укажите источник</legend>
-                <div class="field-group">
-                    <label for="shop-file">Выберите из магазинов:</label>
-                    <select id="shop-file" name="file" >
-                        <option selected disabled>  Выберите...</option>
-                    </select>
+        <section class="step get-file">
+            <h3 class="step__title">ШАГ 1: выбор файла</h3>
+            <div class="content-block"  style="display: block">
+                <fieldset>
+                    <legend>Укажите источник</legend>
+                    <div class="field-group">
+                        <label for="shop-file">Выберите из магазинов:</label>
+                        <select id="shop-file" name="file" >
+                            <option selected disabled>  Выберите...</option>
+                        </select>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="manual-file">Или укажите вручную:</label>
+                        <input id="manual-file" type="text"  name="file" />
+                    </div>
+                </fieldset>
+
+                <div class="buttons">
+                    <a href="#" class="button next">далее</a>
                 </div>
+            </div>
+        </section>
 
-                <div class="field-group">
-                    <label for="manual-file">Или укажите вручную:</label>
-                    <input id="manual-file" type="text"  name="file" />
+        <section class="step" data-action="set_sections">
+            <h3 class="step__title">ШАГ 2: Выбор разделов и ИБ куда грузить</h3>
+
+            <div class="content-block">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Раздел в файле</th>
+                        <th>Загружать в</th>
+                    </tr>
+                    </thead>
+                    <tbody id="sections" class="sections">
+                    </tbody>
+                </table>
+
+                <div class="buttons">
+                    <a href="#" class="button prev">назад</a>
+                    <a href="#" class="button next">далее</a>
                 </div>
-            </fieldset>
-
-            <div class="buttons">
-                <a href="#" class="button next">далее</a>
-            </div>
-        </div>
-
-        <div class="step" data-action="set_sections">
-            <div class="step__title">ШАГ 2: Выбор разделов и ИБ куда грузить</div>
-            <table>
-                <thead>
-                <tr>
-                    <th>Раздел в файле</th>
-                    <th>Загружать в</th>
-                </tr>
-                </thead>
-                <tbody id="sections">
-                </tbody>
-            </table>
-
-            <div class="buttons">
-                <a href="#" class="button prev">назад</a>
-                <a href="#" class="button next">далее</a>
             </div>
 
 
-        </div>
+        </section>
 
     </div>
 
@@ -99,11 +135,12 @@ if(!$USER->IsAdmin())
             alert( 'Не выбран файл' );
             return false;
         }
-
-        getFileStatus();
-
-
-        stepGetFile(file_url, next_step);
+        addInfo( '<div id="file_url">'+file_url+'<span id="file_status"></span></div>' );
+        showFileStatus();
+        afterStepGetFile(file_url, next_step);
+        beforeStepSections(next_step);
+        current_step.find('.content-block').hide();
+        next_step.find('.content-block').show();
 
     });
 
@@ -168,22 +205,32 @@ if(!$USER->IsAdmin())
         container.append('<div class="js_applay">applay</div>');
     });
 
+    function addInfo( information, target = false ){
+        let container = $('#summ-info');
+        if( target === false ) target = container;
+        target.append( information );
+    }
 
     function showFileStatus(){
         // глушим экран
         // проверяем доступность файла
         // Выводим сообщение
         // открывваем экран
-        // активируем кнопку "Далее"
+
         $.ajax({
             method: "POST",
             url: module_path + "getFileStatus.php",
             dataType: 'json',
-            data:{file_path:file_path_remote}
+            data:{file_path:file_path_remote},
             success: function(data){
-                // $.each(data, function(index,value){
-                //     $('#shop-file').append('<option value="'+value['FILE_REFERENCE']+'">'+value['NAME']+'</option>');
-                // });
+
+                $('#file_status').addClass('status_'+data['STATUS']);
+                if( data['STATUS'] === 1 ){
+                    $('#file_status').text('файл доступен');
+                }
+                else if( data['STATUS'] === 0){
+                    $('#file_status').text('файл не доступен');
+                }
             },
             error: function(response){
                 // $("#result #error").show();
@@ -203,21 +250,18 @@ if(!$USER->IsAdmin())
         return file_remote_status;
     }
 
-    function stepGetFile( file_path ){
+    function afterStepGetFile( file_path ){
         file_path_remote = file_path;
-        console.log(file_path_remote);
-
         //Показываем плейсхолдер, ждём проверки доступности файла
         // Если ок - продолжаем, если нет - возвращаем на первый шаг
-
         // здесь проверяем доступность файла, сохраняем файл к нам, записываем ссылку на него для передачи др методам, пока не доавляем во временную таблицу - это после старта
         // file_path_local; - сюда записываем путь к скачанному файлу, пока дублируем удалённый
         file_path_local = file_path_remote;
-
-        showSectionsFromFile( contest ); // Сюда вставляем нашу копию
-
     }
 
+    function beforeStepSections(contecst){
+        showSectionsFromFile( contecst ); // Сюда вставляем блок шага
+    }
     function remove( context ) {
         context.nextAll('td').detach();
         addLevel( context.closest('tr') );
@@ -248,7 +292,6 @@ if(!$USER->IsAdmin())
     }
 
     function showShops(){
-
         $.ajax({
             method: "POST",
             url: module_path + "ajaxGetShops.php",
@@ -275,12 +318,12 @@ if(!$USER->IsAdmin())
                 context: context,
                 data:{file_path:file_path_local},
                 success: function(data){
+                    console.log(data['SECTIONS']);
                     // TODO отработать статус data['STATUS']
                     // TODO Показать сообщение data['MASSAGE']
-
                     // TODO визуализировать многоуровневость
-                    $.each( data['SECTIOMS'], function(index,value){
-                        context.find('#sections').append('<tr><td><div data-section-id="'+value['ID']+'" >'+value['NAME']+'</div></td><td><a class="js_addlevel" href="#">Добавить уровень</a></td></tr>');
+                    $.each( data['SECTIONS'], function(index,value){
+                        context.find('#sections').append('<tr class="death-'+value['DEPTH_LEVEL']+'"><td><div data-section-id="'+value['ID']+'" >'+value['NAME']+'</div></td><td><a class="js_addlevel" href="#">Добавить уровень</a></td></tr>');
                     });
                 },
                 error: function(response){
