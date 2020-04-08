@@ -4,8 +4,8 @@ use Bitrix\Main\Loader;
 Loader::includeModule("iblock");
 
 $IBLOCK_TYPE = 'catalog'; // TODO get saved option
-$IBLOCK_ID = $_POST[iblock]; // TODO get saved option
-$SECTION_ID = $_POST[section_id];
+$IBLOCK_ID = $_POST['iblock']; // TODO get saved option
+$SECTION_ID = $_POST['parrent'];
 
 if( !$IBLOCK_ID || empty( $IBLOCK_ID ) ){
     $obj = new CIBlock;
@@ -26,7 +26,7 @@ else
     $arResult = [];
 
     $arFilter = ["TYPE" => $IBLOCK_TYPE, "ACTIVE" => "Y", "IBLOCK_ID" => $IBLOCK_ID, "SECTION_ID" => false ];
-    if( $SECTION_ID ) $arFilter['SECTION_ID'];
+    if( $SECTION_ID ) $arFilter['SECTION_ID'] = $SECTION_ID;
 
     $rs = $obj->getList( [], $arFilter, false, ["NAME", "ID"], false );
 

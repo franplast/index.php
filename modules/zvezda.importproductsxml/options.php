@@ -11,10 +11,14 @@ if(!$USER->IsAdmin())
 
 ?>
 <style>
+    .content-wrapper {
+        background-color: white;
+        padding: 20px 30px;
+    }
     .summ-info {
         border: #f2dede solid 2px;
         background-color: white;
-        padding: 5px 20px;
+        padding: 10px 20px;
         margin-bottom: 30px;
     }
     .step .content-block {
@@ -35,73 +39,102 @@ if(!$USER->IsAdmin())
     .sections .death-5 td:first-child {
         padding-left: 30px;}
 
+    .button
+
 </style>
 
-<section id="summ-info" class="summ-info">
-    <h2>Общая информация</h2>
+<div class="content-wrapper">
 
-</section>
-<form action="">
+    <section id="summ-info" class="summ-info">
+        <h2>Общая информация</h2>
 
-    <div class="steps ">
+    </section>
+    <form action="">
 
-        <div class="step" data-action="options">
-            В будущем здесь блок настроек. После первого заполнения скрыт по умолчанию
+        <div class="steps ">
+
+            <div class="step" data-action="options">
+                <h3 class="step__title">ШАГ 0: Общие настройки</h3>
+                <div class="content-block">
+                    В будущем здесь блок настроек. После первого заполнения скрыт по умолчанию
+                </div>
+            </div>
+
+            <section class="step get-file">
+                <h3 class="step__title">ШАГ 1: выбор файла</h3>
+                <div class="content-block"  style="display: block">
+                    <fieldset>
+                        <legend>Укажите источник</legend>
+                        <div class="field-group">
+                            <label for="shop-file">Выберите из магазинов:</label>
+                            <select id="shop-file" name="file" >
+                                <option selected disabled>  Выберите...</option>
+                            </select>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="manual-file">Или укажите вручную:</label>
+                            <input id="manual-file" type="text"  name="file" />
+                        </div>
+                    </fieldset>
+
+                    <div class="buttons">
+                        <a href="#" class="button prev">назад</a>
+                        <a href="#" class="button next">далее</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="step get-sections">
+                <h3 class="step__title">ШАГ 2: Выбор разделов и ИБ куда грузить</h3>
+
+                <div class="content-block">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Раздел в файле</th>
+                            <th>Загружать в</th>
+                        </tr>
+                        </thead>
+                        <tbody id="sections" class="sections">
+                        </tbody>
+                    </table>
+
+                    <div class="buttons">
+                        <a href="#" class="button prev">назад</a>
+                        <a href="#" class="button next">далее</a>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="step get-props">
+                <h3 class="step__title">ШАГ 3: Сопставление св-в</h3>
+
+                <div class="content-block">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Св-во в файле</th>
+                            <th>Записывать в...</th>
+                        </tr>
+                        </thead>
+                        <tbody id="poperties" class="poperties">
+                        </tbody>
+                    </table>
+
+                    <div class="buttons">
+                        <a href="#" class="button prev">назад</a>
+                        <a href="#" class="button next">далее</a>
+                    </div>
+                </div>
+            </section>
+
+
         </div>
+    </form>
 
-        <section class="step get-file">
-            <h3 class="step__title">ШАГ 1: выбор файла</h3>
-            <div class="content-block"  style="display: block">
-                <fieldset>
-                    <legend>Укажите источник</legend>
-                    <div class="field-group">
-                        <label for="shop-file">Выберите из магазинов:</label>
-                        <select id="shop-file" name="file" >
-                            <option selected disabled>  Выберите...</option>
-                        </select>
-                    </div>
-
-                    <div class="field-group">
-                        <label for="manual-file">Или укажите вручную:</label>
-                        <input id="manual-file" type="text"  name="file" />
-                    </div>
-                </fieldset>
-
-                <div class="buttons">
-                    <a href="#" class="button next">далее</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="step" data-action="set_sections">
-            <h3 class="step__title">ШАГ 2: Выбор разделов и ИБ куда грузить</h3>
-
-            <div class="content-block">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Раздел в файле</th>
-                        <th>Загружать в</th>
-                    </tr>
-                    </thead>
-                    <tbody id="sections" class="sections">
-                    </tbody>
-                </table>
-
-                <div class="buttons">
-                    <a href="#" class="button prev">назад</a>
-                    <a href="#" class="button next">далее</a>
-                </div>
-            </div>
-
-
-        </section>
-
-    </div>
-
-</form>
-
-
+</div>
 <?php
 
 
@@ -113,6 +146,7 @@ if(!$USER->IsAdmin())
     let file_path_remote;
     let file_path_local;
     let file_remote_status;
+    let relations_iblocks;
 
     // getOptions();
 
@@ -144,9 +178,20 @@ if(!$USER->IsAdmin())
 
     });
 
-    // $('.button.next').on('click', function () {
-    //
-    // })
+    $('.get-sections').on('click', '.button.next', function () {
+        let current_step = $(this).closest('.step');
+        let next_step = current_step.next('.step');
+
+        afterStepSections();
+        beforeStepProps();
+        // beforeStepProperties(next_step);
+        //
+        // current_step.find('.content-block').hide();
+        // next_step.find('.content-block').show();
+
+    });
+
+
     $('.button.prev').on('click', function () {
         let current_step = $(this).closest('.step');
         let prev_step = current_step.prev('.step');
@@ -168,7 +213,7 @@ if(!$USER->IsAdmin())
         let section_id = "";
         let select_container;
 
-        console.log(parent);
+        // console.log(parent);
 
         if( parent.attr('data-iblock-id') != undefined ){
             iblock_id = parent.attr('data-iblock-id');
@@ -262,6 +307,37 @@ if(!$USER->IsAdmin())
     function beforeStepSections(contecst){
         showSectionsFromFile( contecst ); // Сюда вставляем блок шага
     }
+    function afterStepSections(){
+        // Здесь можно сохранить состояние связей, или можно отложить это на конец.
+        // Собираем список использованных ИБ
+        relations_iblocks = [];
+        $('#sections').find('[data-iblock-id]').each(function( index, value) {
+           relations_iblocks.push($(value).data('iblockId'));
+        });
+    }
+    function beforeStepProps(){
+        addInfo( '<div id="relations_iblocks" class="relations_iblocks"><h4>Для загрузки выбраны ИБ-ки</h4><ul class="content"></ul></div>' );
+        $.ajax({
+            method: "POST",
+            url: module_path + "beforeStepProps.php",
+            dataType: 'json',
+            data:{iblock_ids:relations_iblocks},
+            success: function(data){
+
+                $.each(data['ITEMS'], function(index,value){
+                    addInfo( '<li>'+value['NAME']+' ('+value['NAME']+')</lI>', $('#relations_iblocks').find('.content') );
+                });
+            },
+            error: function(response){
+                // $("#result #error").show();
+                // setTimeout('$("#result #error").hide()', 5000);
+            }
+        })
+    }
+    function afterStepProps(){
+
+    }
+
     function remove( context ) {
         context.nextAll('td').detach();
         addLevel( context.closest('tr') );
@@ -310,6 +386,8 @@ if(!$USER->IsAdmin())
 
     function showSectionsFromFile( context ){
 
+        // TODO дополнить данные сохранёнными связями
+
         if( file_path_local != '' ){
             $.ajax({
                 method: "POST",
@@ -318,7 +396,7 @@ if(!$USER->IsAdmin())
                 context: context,
                 data:{file_path:file_path_local},
                 success: function(data){
-                    console.log(data['SECTIONS']);
+                    // console.log(data['SECTIONS']);
                     // TODO отработать статус data['STATUS']
                     // TODO Показать сообщение data['MASSAGE']
                     // TODO визуализировать многоуровневость
@@ -335,8 +413,8 @@ if(!$USER->IsAdmin())
     }
 
     function showSectionsFromIblock( context, iblock, parrent ){
-        console.log(iblock);
-        console.log(parrent);
+        // console.log(iblock);
+        // console.log(parrent);
         $.ajax({
             method: "POST",
             url: module_path + "ajaxGetSectionsFromIblock.php",
