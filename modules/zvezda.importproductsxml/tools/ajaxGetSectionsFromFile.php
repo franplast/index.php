@@ -1,26 +1,32 @@
 <?php
 include_once($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
-//use Bitrix\Main\Loader;
-//Loader::includeModule("iblock");
+$arResult = [];
+$FILE = $_POST[file_path];
 
-//$IBLOCK_TYPE = 'catalog'; // TODO gep saved option
-//
-//$iblock = new CIBlock;
-//$arShops = [];
-//
-//$rsIblock = $iblock->getList([], ["TYPE" => $IBLOCK_TYPE, "ACTIVE" => "Y"]);
-//
-//while ($obIblock = $rsIblock->Fetch()) {
-//    $arIblock[] = [
-//        "NAME" => $obIblock['NAME'],
-//        "ID" => $obIblock['ID']
-//    ];
-//}
+// здесь проверяем доступность файла,
+// проверяем у нас есть ли копия файла,
+// если есть - сверяем дату и время обновления из <yml_catalog date="2020-04-08 11:28">,
+// Если идиентичны - записываем это в сообщение, но продолжаем процесс
+// скачиваем во временную папку или в постоянную для сверки в будущем, если файл был - заменяем. Имя файла должно быть таким, что бы можно было определить к какому магазину он привязан.
+// Возможно записываен дату обновления файла из yml_catalog date="2020-04-08 11:28" в элемент ИБ для сверки в след раз
+// Перебираем разделы файла, строим полное многоуровневое дерево
+// Собираем массив данных
+$status = "1"; // Пока доступен файл или нет, позже сюда же можно добавить обновлён удалённый или нет. 0- недоступен, 1 - доступен
+$message =""; // Заполняем, если есть что сказать, например, что файл не обновлялся с последней проверки, или что он не доступен
 
+$arResult['STATUS'] = $status;
+$arResult['MASSAGE'] = $message;
 $arResult = [
-    [ 'ID' => 1,   "NAME" => 'test_1' ],
-    [ 'ID' => 2,   "NAME" => 'test_2' ],
-    [ 'ID' => 3,   "NAME" => 'test_3' ]
+    'SECTIOMS' =>[
+        [ 'ID' => 1,   "NAME" => 'test_1', 'DEPTH_LEVEL'=> 1 ],
+        [ 'ID' => 2,   "NAME" => 'test_2', 'DEPTH_LEVEL'=> 1 ],
+        [ 'ID' => 3,   "NAME" => 'test_2_1', 'DEPTH_LEVEL'=> 2, 'PARENT_ID'=>2 ],
+        [ 'ID' => 3,   "NAME" => 'test_2_2', 'DEPTH_LEVEL'=> 2, 'PARENT_ID'=>2 ],
+        [ 'ID' => 3,   "NAME" => 'test_2_3', 'DEPTH_LEVEL'=> 2, 'PARENT_ID'=>2 ],
+        [ 'ID' => 3,   "NAME" => 'test_3', 'DEPTH_LEVEL'=> 1 ],
+        [ 'ID' => 3,   "NAME" => 'test_3', 'DEPTH_LEVEL'=> 1 ],
+    ]
+
 ];
 
 echo json_encode($arResult);

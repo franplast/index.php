@@ -10,38 +10,37 @@ if(!$USER->IsAdmin())
 // получаем настройки
 
 ?>
-    <form action="">
+<form action="">
 
-        <div class="steps">
+    <div class="steps ">
+
+        <div class="step" data-action="options">
             В будущем здесь блок настроек. После первого заполнения скрыт по умолчанию
         </div>
 
-
-        <div class="steps">
-            <div class="step">
-                <div class="step__title">ШАГ 1: выбор файла</div>
-                <fieldset>
-                    <legend>Укажите источник</legend>
-                    <div class="field-group">
-                        <label for="shop-file">Выберите из магазинов:</label>
-                        <select id="shop-file" name="file" >
-                            <option selected disabled>  Выберите...</option>
-                        </select>
-                    </div>
-
-                    <div class="field-group">
-                        <label for="manual-file">Или укажите вручную:</label>
-                        <input id="manual-file" type="text"  name="file" />
-                    </div>
-                </fieldset>
-
-                <div class="buttons">
-                    <div class="button">далее</div>
+        <div class="step active get-file">
+            <div class="step__title">ШАГ 1: выбор файла</div>
+            <fieldset>
+                <legend>Укажите источник</legend>
+                <div class="field-group">
+                    <label for="shop-file">Выберите из магазинов:</label>
+                    <select id="shop-file" name="file" >
+                        <option selected disabled>  Выберите...</option>
+                    </select>
                 </div>
+
+                <div class="field-group">
+                    <label for="manual-file">Или укажите вручную:</label>
+                    <input id="manual-file" type="text"  name="file" />
+                </div>
+            </fieldset>
+
+            <div class="buttons">
+                <a href="#" class="button next">далее</a>
             </div>
         </div>
 
-        <div class="step">
+        <div class="step" data-action="set_sections">
             <div class="step__title">ШАГ 2: Выбор разделов и ИБ куда грузить</div>
             <table>
                 <thead>
@@ -53,19 +52,21 @@ if(!$USER->IsAdmin())
                 <tbody id="sections">
                 </tbody>
             </table>
+
+            <div class="buttons">
+                <a href="#" class="button prev">назад</a>
+                <a href="#" class="button next">далее</a>
+            </div>
+
+
         </div>
 
-
     </div>
+
 </form>
 
 
 <?php
-
-
-
-
-
 
 
 ?>
@@ -73,14 +74,54 @@ if(!$USER->IsAdmin())
 <script>
 
     let module_path = "/local/modules/zvezda.importproductsxml/tools/";
+    let file_path_remote;
+    let file_path_local;
+
+    // getOptions();
 
     getShops();
 
-        В первую очередь описываем переход ко второму шагу
+    $('.get-file').on('click', '.button.next', function () {
+        let current_step = $(this).closest('.step');
+        let next_step = current_step.next('.step');
+        let shop_file = $('#shop-file').val();
+        let manual_file = $('#manual-file').val();
+        let file_url;
 
-    getSectionsFromFile();
+        if( manual_file != '' ){
+            file_url = manual_file;
+        }
+        else if( shop_file !== null) {
+            file_url = shop_file;
+        }
+        else{
+            alert( 'Не выбран файл' );
+            return false;
+        }
+
+        getFileStatus();
 
 
+        stepGetFile(file_url, next_step);
+
+    });
+
+    // $('.button.next').on('click', function () {
+    //
+    // })
+    $('.button.prev').on('click', function () {
+        let current_step = $(this).closest('.step');
+        let prev_step = current_step.prev('.step');
+        // let action = prev_step.attr('data-action');
+
+        current_step.removeClass('active');
+        prev_step.addClass('active');
+
+        // if( action == "set_sections" )
+        // {
+        //     showSectionsFromFile();
+        // }
+    });
 
     $('#sections').on( 'click', '.js_addlevel', function(){
         let container = $(this).closest('td');
@@ -126,8 +167,24 @@ if(!$USER->IsAdmin())
         container.append('<div class="js_applay">applay</div>');
     });
 
+    function getFileStatus(){
+        // проверяем доступность файла
+    };
 
+    function stepGetFile( file_path ){
+        file_path_remote = file_path;
+        console.log(file_path_remote);
 
+        //Показываем плейсхолдер, ждём проверки доступности файла
+        // Если ок - продолжаем, если нет - возвращаем на первый шаг
+
+        // здесь проверяем доступность файла, сохраняем файл к нам, записываем ссылку на него для передачи др методам, пока не доавляем во временную таблицу - это после старта
+        // file_path_local; - сюда записываем путь к скачанному файлу, пока дублируем удалённый
+        file_path_local = file_path_remote;
+
+        showSectionsFromFile( contest ); // Сюда вставляем нашу копию
+
+    }
 
     function remove( context ) {
         context.nextAll('td').detach();
@@ -155,12 +212,8 @@ if(!$USER->IsAdmin())
     }
 
     function addLevel( context ){
-
         context.append('<td><a class="js_addlevel">Добавить уровень</a></td>');
     }
-
-
-
 
     function getShops(){
 
@@ -180,41 +233,30 @@ if(!$USER->IsAdmin())
         })
     }
 
-    function getSectionsFromFile(){
-        $.ajax({
-            method: "POST",
-            url: module_path + "ajaxGetSectionsFromFile.php",
-            dataType: 'json',
-            success: function(data){
-                $.each(data, function(index,value){
-                    $('#sections').append('<tr><td><div data-section-id="'+value['ID']+'" >'+value['NAME']+'</div></td><td><a class="js_addlevel" href="#">Добавить уровень</a></td></tr>');
-                });
-            },
-            error: function(response){
-                // $("#result #error").show();
-                // setTimeout('$("#result #error").hide()', 5000);
-            }
-        })
-    }
+    function showSectionsFromFile( context ){
 
-    function showIblocks( context ){
+        if( file_path_local != '' ){
+            $.ajax({
+                method: "POST",
+                url: module_path + "ajaxGetSectionsFromFile.php",
+                dataType: 'json',
+                context: context,
+                data:{file_path:file_path_local},
+                success: function(data){
+                    // TODO отработать статус data['STATUS']
+                    // TODO Показать сообщение data['MASSAGE']
 
-        $.ajax({
-            method: "POST",
-            url: module_path + "ajaxGetIbloks.php",
-            dataType: 'json',
-            context: context,
-            success: function(data){
-                $.each(data, function(index,value){
-                    context.append('<option value="'+value['ID']+'">'+value['NAME']+'</option>');
-                });
-            },
-            error: function(response){
-                // $("#result #error").show();
-                // setTimeout('$("#result #error").hide()', 5000);
-            }
-        })
-
+                    // TODO визуализировать многоуровневость
+                    $.each( data['SECTIOMS'], function(index,value){
+                        context.find('#sections').append('<tr><td><div data-section-id="'+value['ID']+'" >'+value['NAME']+'</div></td><td><a class="js_addlevel" href="#">Добавить уровень</a></td></tr>');
+                    });
+                },
+                error: function(response){
+                    // $("#result #error").show();
+                    // setTimeout('$("#result #error").hide()', 5000);
+                }
+            })
+        }
     }
 
     function showSectionsFromIblock( context, iblock, parrent ){
@@ -244,9 +286,6 @@ if(!$USER->IsAdmin())
         })
     }
 
-    function loadFile(){
-
-    }
 
 
 

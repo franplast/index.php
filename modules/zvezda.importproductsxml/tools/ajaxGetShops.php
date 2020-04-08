@@ -11,6 +11,6 @@ $arShops = [];
 $rsElement = $el->getList( [], ["IBLOCK_ID" => $IBLOCK_ID, "ACTIVE" => "Y", "!".$PROPERTY_FILE_REFERENCE => false] , false, false, ["IBLOCK_ID", "ID", "NAME", $PROPERTY_FILE_REFERENCE] );
 
 while($arElement = $rsElement->Fetch())
-    $arShops[] = [ "ID" => $arElement["ID"], "NAME" => $arElement["NAME"], "FILE_REFERENCE" => $arElement[$PROPERTY_FILE_REFERENCE] ];
+    $arShops[] = [ "ID" => $arElement["ID"], "NAME" => $arElement["NAME"], "FILE_REFERENCE" => $arElement[$PROPERTY_FILE_REFERENCE."_VALUE"] ];
 
 echo json_encode($arShops);
