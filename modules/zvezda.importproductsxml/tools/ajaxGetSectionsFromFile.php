@@ -14,7 +14,7 @@
 $status = "1"; // Пока доступен файл или нет, позже сюда же можно добавить обновлён удалённый или нет. 0- недоступен, 1 - доступен
 $message =""; // Заполняем, если есть что сказать, например, что файл не обновлялся с последней проверки, или что он не доступен
 $arResult['STATUS'] = $status;
-$arResult['MASSAGE'] = $message;
+$arResult['MESSAGE'] = $message;
 
 $FILE = $_POST["file_path"];
 //$FILE = "index.xml";//удалить
@@ -93,14 +93,14 @@ function line_node($level,$ar,&$result){
     }
 }
 //построение дерева, вернет разделы с вложенными подразделами
-function find_node($dataset, $id, $name, $ind, $res = array(), $items = array())
+function find_node($dataset, $id, $name, $ind, $res = array())
 {
-    global $result; // иначе $result будет undefined
+    //global $result; // иначе $result будет undefined
     foreach ($dataset as $key => $value) {
         if ($key != $id) {
             //if (isset($dataset[$key]['SECTIONS'])) {
             //pre($dataset[$key]['SECTIONS']);
-            $r = find_node($dataset[$key]['SECTIONS'], $id, $name, $ind, $res, $items);
+            $r = find_node($dataset[$key]['SECTIONS'], $id, $name, $ind, $res);
             if (is_array($r)) {
                 //$dataset[$key]["SECTIONS"] = array();
                 $dataset[$key]["SECTIONS"] = $r;//array_replace($dataset[$key]["SECTIONS"],$r);
