@@ -12,3 +12,4 @@ $xml->LoadString(file_get_contents($xml_string));
 if ($node = $xml->SelectNodes('/yml_catalog/shop/offers/')) {
     pre($node->getPosition());
 }
+//
