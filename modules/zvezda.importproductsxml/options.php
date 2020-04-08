@@ -76,10 +76,11 @@ if(!$USER->IsAdmin())
     let module_path = "/local/modules/zvezda.importproductsxml/tools/";
     let file_path_remote;
     let file_path_local;
+    let file_remote_status;
 
     // getOptions();
 
-    getShops();
+    showShops();
 
     $('.get-file').on('click', '.button.next', function () {
         let current_step = $(this).closest('.step');
@@ -167,9 +168,40 @@ if(!$USER->IsAdmin())
         container.append('<div class="js_applay">applay</div>');
     });
 
-    function getFileStatus(){
+
+    function showFileStatus(){
+        // глушим экран
         // проверяем доступность файла
+        // Выводим сообщение
+        // открывваем экран
+        // активируем кнопку "Далее"
+        $.ajax({
+            method: "POST",
+            url: module_path + "getFileStatus.php",
+            dataType: 'json',
+            data:{file_path:file_path_remote}
+            success: function(data){
+                // $.each(data, function(index,value){
+                //     $('#shop-file').append('<option value="'+value['FILE_REFERENCE']+'">'+value['NAME']+'</option>');
+                // });
+            },
+            error: function(response){
+                // $("#result #error").show();
+                // setTimeout('$("#result #error").hide()', 5000);
+            }
+        })
+
     };
+
+    function getFileStatus(){
+        // так как статус получаем в ajax - не можем сразу установить его в переменную
+        // Поэтому получаем его на следующем шаге из блока куда его поместил аякс
+        if( file_remote_status == '' ){
+            // получаем из разметки, если ещё не устаовлен, иначе сразу отдаём установленный
+            file_remote_status = 1; // 0 - недоступен, 1 - доступен
+        }
+        return file_remote_status;
+    }
 
     function stepGetFile( file_path ){
         file_path_remote = file_path;
@@ -215,7 +247,7 @@ if(!$USER->IsAdmin())
         context.append('<td><a class="js_addlevel">Добавить уровень</a></td>');
     }
 
-    function getShops(){
+    function showShops(){
 
         $.ajax({
             method: "POST",
