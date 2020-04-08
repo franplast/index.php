@@ -52,7 +52,6 @@ if($d){
         }
     }
 
-    //pre(count($search_cat));
     //построение дерева, до 11 уровней вложенностей
     for ($i = 0, $c = 10; $i < $c; ++$i) {
         if (!count($search_cat)) break;
@@ -98,19 +97,13 @@ function find_node($dataset, $id, $name, $ind, $res = array())
     //global $result; // иначе $result будет undefined
     foreach ($dataset as $key => $value) {
         if ($key != $id) {
-            //if (isset($dataset[$key]['SECTIONS'])) {
-            //pre($dataset[$key]['SECTIONS']);
             $r = find_node($dataset[$key]['SECTIONS'], $id, $name, $ind, $res);
             if (is_array($r)) {
-                //$dataset[$key]["SECTIONS"] = array();
-                $dataset[$key]["SECTIONS"] = $r;//array_replace($dataset[$key]["SECTIONS"],$r);
+                $dataset[$key]["SECTIONS"] = $r;
                 return $dataset;
             }
-            //return false;
-            //}
         } else {
             $dataset[$key]["SECTIONS"][$ind]["NAME"] = $name;
-            //$dataset[$key]["SECTIONS"][$ind]["ITEMS"] = $items;
             return $dataset;
         }
     }

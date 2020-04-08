@@ -28,18 +28,59 @@ if(!$USER->IsAdmin())
         display: block;
     }
 
-    .sections .death-1 td:first-child {
-        padding-left: 5px;}
-    .sections .death-2 td:first-child {
-        padding-left: 10px;}
-    .sections .death-3 td:first-child {
-        padding-left: 15px;}
-    .sections .death-4 td:first-child {
-        padding-left: 20px;}
-    .sections .death-5 td:first-child {
-        padding-left: 30px;}
+    #sections ul {
+        list-style: none;
+        padding-left: 20px;
+        padding-top: 4px;
+    }
+    #sections li {
+        padding-top: 6px;
+        margin-bottom: 6px;
+    }
 
-    .button
+    .death-level-1 ul {display: none;}
+
+    .show-sublevel{
+        cursor: pointer;
+    }
+    .show-sublevel:before {
+        content: ">";
+        padding-right: 4px;
+    }
+
+    .buttons {display: flex;}
+    .button {
+        display: block;
+        padding: 5px 11px;
+        border: #3ac769 solid 1px;
+        border-radius: 5px;
+        font-size: 18px;
+        margin: 5px;
+        cursor: pointer;
+        color: white;
+        background-color: green;
+        text-decoration: none;
+    }
+    .button a,
+    .button a:hover,
+    {
+        color: inherit;
+        text-decoration: none;
+    }
+    .button:hover {text-decoration: none; background-color: #00be00; }
+    .button.button-red{background-color: red;}
+    .button.button-red:hover{background-color: #ff4508;}
+
+
+    .bind {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .show_select {
+        display: flex;
+        align-items: center;
+    }
 
 </style>
 
@@ -89,6 +130,9 @@ if(!$USER->IsAdmin())
                 <h3 class="step__title">ШАГ 2: Выбор разделов и ИБ куда грузить</h3>
 
                 <div class="content-block">
+                    ВАЖНО!!! Товары для несопоставленных разделов загружаться не будут
+                    НО если раздел не настроен, но раздел выше настрон, будут взяты его натройки
+                    <?/*
                     <table>
                         <thead>
                         <tr>
@@ -99,7 +143,11 @@ if(!$USER->IsAdmin())
                         <tbody id="sections" class="sections">
                         </tbody>
                     </table>
-
+*/?>
+                    <div id="sections" class="sections">
+                        <ul class="death-level-1">
+                        </ul>
+                    </div>
                     <div class="buttons">
                         <a href="#" class="button prev">назад</a>
                         <a href="#" class="button next">далее</a>
@@ -112,7 +160,7 @@ if(!$USER->IsAdmin())
                 <h3 class="step__title">ШАГ 3: Сопставление св-в</h3>
 
                 <div class="content-block">
-                    <table>
+                   <?/* <table>
                         <thead>
                         <tr>
                             <th>Св-во в файле</th>
@@ -122,6 +170,10 @@ if(!$USER->IsAdmin())
                         <tbody id="poperties" class="poperties">
                         </tbody>
                     </table>
+*/?>
+                    <ul id="" class="">
+                    </ul>
+
 
                     <div class="buttons">
                         <a href="#" class="button prev">назад</a>
@@ -191,6 +243,10 @@ if(!$USER->IsAdmin())
 
     });
 
+    //$('')
+    function showSubsections(){
+
+    }
 
     $('.button.prev').on('click', function () {
         let current_step = $(this).closest('.step');
@@ -207,31 +263,43 @@ if(!$USER->IsAdmin())
     });
 
     $('#sections').on( 'click', '.js_addlevel', function(){
-        let container = $(this).closest('td');
+        let container = $(this).siblings('.show_select');
         let parent = container.parent();
         let iblock_id = "";
         let section_id = "";
         let select_container;
 
-        // console.log(parent);
+        container.prepend('<select></select><div class="button js_apply">v</div><div class="button button-red js_breack">x</div>');
 
-        if( parent.attr('data-iblock-id') != undefined ){
-            iblock_id = parent.attr('data-iblock-id');
-        }
-        if( parent.attr('data-section-id') != undefined ){
-            section_id = parent.attr('data-section-id');
-        }
+        showSectionsFromIblock(container.find('select') , iblock_id, section_id);
 
-        $(this).detach();
-        container.append('<select class="show_select"></select>');
-        select_container = container.find('.show_select');
-        showSectionsFromIblock(select_container, iblock_id, section_id);
-        container.append('<div class="js_applay">applay</div>');
+        // // console.log(parent);
+        // if( parent.attr('data-iblock-id') != undefined ){
+        //     iblock_id = parent.attr('data-iblock-id');
+        // }
+        // if( parent.attr('data-section-id') != undefined ){
+        //     section_id = parent.attr('data-section-id');
+        //
+        // }
+        //
+        // $(this).detach();
+        // container.append('<div class="js_applay">applay</div>');
     });
 
-    $('#sections').on( 'click', '.js_applay', function(){
-        let container = $(this).closest('td');
-        applay(container);
+
+    $('#sections').on( 'click', '.js_apply', function(){
+        let container = $(this).closest('.show_select');
+        let id = container.find('select').val();
+        let name = container.find('select option:selected').text();
+
+        container.empty();
+
+        container.append('/<span data-id="'+id+'">'+name+'</span>/');
+    });
+
+    $('.show_select').on( 'click', '.js_breack', function(){
+        let container = $(this).closest('.show_select');
+        container.empty();
     });
 
     $('#sections').on( 'click', '.js_remove', function(){
@@ -250,6 +318,9 @@ if(!$USER->IsAdmin())
         container.append('<div class="js_applay">applay</div>');
     });
 
+    $('#sections').on('click', '.show-sublevel', function () {
+        $(this).siblings('ul').slideToggle();
+    })
     function addInfo( information, target = false ){
         let container = $('#summ-info');
         if( target === false ) target = container;
@@ -306,7 +377,9 @@ if(!$USER->IsAdmin())
 
     function beforeStepSections(contecst){
         showSectionsFromFile( contecst ); // Сюда вставляем блок шага
+
     }
+
     function afterStepSections(){
         // Здесь можно сохранить состояние связей, или можно отложить это на конец.
         // Собираем список использованных ИБ
@@ -315,6 +388,7 @@ if(!$USER->IsAdmin())
            relations_iblocks.push($(value).data('iblockId'));
         });
     }
+
     function beforeStepProps(){
         addInfo( '<div id="relations_iblocks" class="relations_iblocks"><h4>Для загрузки выбраны ИБ-ки</h4><ul class="content"></ul></div>' );
         $.ajax({
@@ -334,6 +408,7 @@ if(!$USER->IsAdmin())
             }
         })
     }
+
     function afterStepProps(){
 
     }
@@ -384,7 +459,7 @@ if(!$USER->IsAdmin())
         })
     }
 
-    function showSectionsFromFile( context ){
+    function showSectionsFromFile(){
 
         // TODO дополнить данные сохранёнными связями
 
@@ -393,16 +468,27 @@ if(!$USER->IsAdmin())
                 method: "POST",
                 url: module_path + "ajaxGetSectionsFromFile.php",
                 dataType: 'json',
-                context: context,
+                // context: context,
                 data:{file_path:file_path_local},
                 success: function(data){
                     // console.log(data['SECTIONS']);
                     // TODO отработать статус data['STATUS']
                     // TODO Показать сообщение data['MASSAGE']
                     // TODO визуализировать многоуровневость
+                    let container = $('#sections').find('ul') ;
+                    let tmp_death_levl = 1;
                     $.each( data['SECTIONS'], function(index,value){
-                        context.find('#sections').append('<tr class="death-'+value['DEPTH_LEVEL']+'"><td><div data-section-id="'+value['ID']+'" >'+value['NAME']+'</div></td><td><a class="js_addlevel" href="#">Добавить уровень</a></td></tr>');
+                        if(tmp_death_levl < value['DEPTH_LEVEL']){
+                            container = container.find('li').filter( ':last' ).append('<ul class="death-level-' + value['DEPTH_LEVEL'] + '"></ul>').find('ul');
+                            tmp_death_levl = value['DEPTH_LEVEL'];
+                        }
+                        else if( tmp_death_levl > value['DEPTH_LEVEL'] ){
+                            container = container.closest('.death-level-' + value['DEPTH_LEVEL']);
+                            tmp_death_levl = value['DEPTH_LEVEL'];
+                        }
+                        container.append('<li class="death-'  + tmp_death_levl + '" data-filesectionid="'+value['ID']+'"><span>' + value['NAME'] + '</span> <div class="bind"><div class="show_select"></div><a class="js_addlevel" href="#">+</a></div></li>');
                     });
+                    $('#sections').find('ul').siblings('span').addClass('show-sublevel');
                 },
                 error: function(response){
                     // $("#result #error").show();
