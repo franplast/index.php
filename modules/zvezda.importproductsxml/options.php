@@ -149,16 +149,48 @@ if(!$USER->IsAdmin())
             <section class="step get-props">
                 <h3 class="step__title">ШАГ 3: Сопставление св-в</h3>
 
-                <div class="content-block">
+                <div class="content-block" id="properties" class="properties">
                     <div class="warning">
                         Вам нужно повторить сопоставление св-в и полей для каждого выбранноо ИБ и при необходимости для SKU<br>
                         Поля - это стандартные св-ва элементов битрикса, они перечислены на вкладке "Поля" в настройках ИБ<br>
                         Св-ва - это созданные вручную дополнительные св-ва, они перечислены на вкладке "Свойства" в настройках ИБ
                     </div>
 
-                    <ul id="properties" class="properties">
+                    <div class="iblock-container">
+                        <div>
+                            <p>Однозначно понятные поля и св-ва уже связаны с соответствующими системными св-вами</p>
+                            <ul>
+                                <li>Цена - Цена</li>
+                                <li>вес - вес</li>
+                                <li>валюта - валюта</li>
+                            </ul>
 
-                    </ul>
+                        </div>
+
+                        <h4>поля товаров из файла</h4>
+                        <ul class="fields">
+                            <li>
+                                <div class="prop-name">Имя поля из файла</div>
+                                <div class="bind">
+                                    <a href="#" class="field-product">Связать c полем товара</a>
+                                    <a href="#" class="field-product">Связать со св-вом товара</a>
+                                    <?/* <a href="#" class="field-SKU">Связать c полем SKU</a>  Это пока не нужно */?>
+                                    <a href="#" class="field-product">Связать со св-вом SKU</a>
+                                </div>
+                            </li>
+                        </ul>
+                        <h4>Св-ва товаров из файла</h4>
+                        <ul class="props">
+                            <div class="prop-name">
+                                <div class="bind">
+                                    <a href="#" class="field-product">Связать c полем товара</a>
+                                    <a href="#" class="field-product">Связать со св-вом товара</a>
+                                    <?/* <a href="#" class="field-SKU">Связать c полем SKU</a>  Это пока не нужно */?>
+                                    <a href="#" class="field-product">Связать со св-вом SKU</a>
+                                </div></div>
+                        </ul>
+
+                    </div>
 
 
                     <div class="buttons">
@@ -306,7 +338,6 @@ if(!$USER->IsAdmin())
             if( iblock_id !== undefined )
                 relations_iblocks.push(iblock_id);
         });
-        console.log(relations_iblocks);
 
         $('#relations_iblocks').remove();
         addInfo( '<div id="relations_iblocks" class="relations_iblocks"><h4>Для загрузки выбраны ИБ-ки</h4><ul class="content"></ul></div>'  );
@@ -332,7 +363,7 @@ if(!$USER->IsAdmin())
         if( file_path_local != '' ){
             $.ajax({
                 method: "POST",
-                url: module_path + "ajaxGetPropsFromFile.php",
+                url: module_path + "afterStepSections.php",
                 dataType: 'json',
                 // context: context,
                 data:{file_path:file_path_local},

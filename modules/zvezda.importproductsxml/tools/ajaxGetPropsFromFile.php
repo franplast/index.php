@@ -35,18 +35,18 @@ $arResult['MESSAGE'] = $message;
 
 
 $arResult['ITEMS_FIELDS'] = [
-    [ "ID" => 1, "NAME" => "Имя поля 1", "CODE" => "NAME_FIELD_1", "TYPE" => "S" ],
-    [ "ID" => 2, "NAME" => "Имя поля 2", "CODE" => "NAME_FIELD_2", "TYPE" => "F"  ],
+    [ "ID" => 1, "NAME" => "Имя поля 1", "CODE" => "NAME_FIELD_1" ],
+    [ "ID" => 2, "NAME" => "Имя поля 2", "CODE" => "NAME_FIELD_2" ],
     [ "ID" => 3, "NAME" => "Имя поля 3", "CODE" => "NAME_FIELD_3" ],
     [ "ID" => 4, "NAME" => "Имя поля 4", "CODE" => "NAME_FIELD_4" ],
     [ "ID" => 5, "NAME" => "Имя поля 5", "CODE" => "NAME_FIELD_5" ],
 ];
 $a5Result['ITEMS_PROPERTIES'] = [
-    [ "ID" => 1, "NAME" => "Имя поля 1", "CODE" => "NAME_FIELD_1", "TYPE" => "S" ],
-    [ "ID" => 2, "NAME" => "Имя поля 2", "CODE" => "NAME_FIELD_2", "TYPE" => "E", "LINKED_IBLOCK_ID" => 15 ],
-    [ "ID" => 3, "NAME" => "Имя поля 3", "CODE" => "NAME_FIELD_3", "TYPE" => "F" ],
-    [ "ID" => 4, "NAME" => "Имя поля 4", "CODE" => "NAME_FIELD_4", "TYPE" => "N" ],
-    [ "ID" => 5, "NAME" => "Имя поля 5", "CODE" => "NAME_FIELD_5", "TYPE" => "S" ],
+    [ "ID" => 1, "NAME" => "Имя поля 1", "CODE" => "NAME_FIELD_1" ],
+    [ "ID" => 2, "NAME" => "Имя поля 2", "CODE" => "NAME_FIELD_2" ],
+    [ "ID" => 3, "NAME" => "Имя поля 3", "CODE" => "NAME_FIELD_3" ],
+    [ "ID" => 4, "NAME" => "Имя поля 4", "CODE" => "NAME_FIELD_4" ],
+    [ "ID" => 5, "NAME" => "Имя поля 5", "CODE" => "NAME_FIELD_5" ],
 ];
 
 echo json_encode($arResult);
