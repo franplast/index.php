@@ -72,7 +72,7 @@ if(!$USER->IsAdmin())
     .button.button-red:hover{background-color: #ff4508;}
 
 
-    .bind {
+    #sections .bind {
         display: inline-flex;
         align-items: center;
     }
@@ -103,7 +103,7 @@ if(!$USER->IsAdmin())
 
             <section class="step get-file">
                 <h3 class="step__title">ШАГ 1: выбор файла</h3>
-                <div class="content-block"  style="display: block">
+                <div class="content-block" style="display: block">
                     <fieldset>
                         <legend>Укажите источник</legend>
                         <div class="field-group">
@@ -149,7 +149,7 @@ if(!$USER->IsAdmin())
             <section class="step get-props">
                 <h3 class="step__title">ШАГ 3: Сопставление св-в</h3>
 
-                <div class="content-block" id="properties" class="properties">
+                <div class="content-block" style="display: block" id="properties" class="properties">
                     <div class="warning">
                         Вам нужно повторить сопоставление св-в и полей для каждого выбранноо ИБ и при необходимости для SKU<br>
                         Поля - это стандартные св-ва элементов битрикса, они перечислены на вкладке "Поля" в настройках ИБ<br>
@@ -172,26 +172,24 @@ if(!$USER->IsAdmin())
                             <li>
                                 <div class="prop-name">Имя поля из файла</div>
                                 <div class="bind">
-                                    <a href="#" class="field-product">Связать c полем товара</a>
-                                    <a href="#" class="field-product">Связать со св-вом товара</a>
+                                    <a href="#" class="field-product">Связать c полем товара</a><br>
+                                    <a href="#" class="prop-product">Связать со св-вом товара</a><br>
                                     <?/* <a href="#" class="field-SKU">Связать c полем SKU</a>  Это пока не нужно */?>
-                                    <a href="#" class="field-product">Связать со св-вом SKU</a>
+                                    <a href="#" class="prop-sku">Связать со св-вом SKU</a><br>
                                 </div>
                             </li>
                         </ul>
                         <h4>Св-ва товаров из файла</h4>
                         <ul class="props">
-                            <div class="prop-name">
-                                <div class="bind">
-                                    <a href="#" class="field-product">Связать c полем товара</a>
-                                    <a href="#" class="field-product">Связать со св-вом товара</a>
-                                    <?/* <a href="#" class="field-SKU">Связать c полем SKU</a>  Это пока не нужно */?>
-                                    <a href="#" class="field-product">Связать со св-вом SKU</a>
-                                </div></div>
+                            <div class="prop-name">Имя св-ва из файла</div>
+                            <div class="bind">
+                                <a href="#" class="field-product">Связать c полем товара</a><br>
+                                <a href="#" class="prop-product">Связать со св-вом товара</a> или <a href="#" class="create">создать новое</a><br>
+                                <?/* <a href="#" class="field-SKU">Связать c полем SKU</a>  Это пока не нужно */?>
+                                <a href="#" class="prop-sku">Связать со св-вом SKU или создать новое</a><br>
+                            </div>
                         </ul>
-
                     </div>
-
 
                     <div class="buttons">
                         <a href="#" class="button prev">назад</a>
@@ -360,25 +358,30 @@ if(!$USER->IsAdmin())
 
     function beforeStepProps(){
 
+
         if( file_path_local != '' ){
             $.ajax({
                 method: "POST",
-                url: module_path + "afterStepSections.php",
+                url: module_path + "ajaxGetPropsFromFile.php",
                 dataType: 'json',
                 // context: context,
                 data:{file_path:file_path_local},
                 success: function(data){
-                    // console.log(data['SECTIONS']);
+                    console.log(data);
                     // TODO отработать статус data['STATUS']
                     // TODO Показать сообщение data['MASSAGE']
                     // TODO визуализировать многоуровневость
-                    let container = $('#properties').find('ul') ;
-                    let tmp_death_levl = 1;
-                    $.each( data['SECTIONS'], function(index,value){
+                    let container = $('#properties')
+                    let container_fields = container.find('.fields');
+                    let container_props = container.find('.props');
 
-                        container.append('<li><span>' + value['NAME'] + '</span></li>');
+                   $.each( data['ITEMS']['FIELDS'], function(index,value){
+                       container_fields.append('<li><span>' + value + '</span></li>');
                     });
-                    $('#properties').find('ul').siblings('span').addClass('show-sublevel');
+                   $.each( data['ITEMS']['PROPS'], function(index,value){
+                        container_props.append('<li><span>' + value + '</span></li>');
+                    });
+                    // $('#properties').find('ul').siblings('span').addClass('show-sublevel');
                 },
                 error: function(response){
                     // $("#result #error").show();

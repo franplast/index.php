@@ -41,7 +41,23 @@ class importProductsXml
 
 
 
-
+    /**********
+     * Типы свойств инфоблоков:
+     *  S — строка
+     *  N — число
+     *  L — список
+     *  F — файл
+     *  G — привязка к разделу
+     *  E — привязка к элементу
+     *  S:UserID — Привязка к пользователю
+     *  S:DateTime — Дата/Время
+     *  E:EList — Привязка к элементам в виде списка
+     *  S:FileMan — Привязка к файлу (на сервере)
+     *  S:map_yandex — Привязка к Яndex.Карте
+     *  S:HTML — HTML/текст
+     *  S:map_google — Привязка к карте Google Maps
+     *  S:ElementXmlID — Привязка к элементам по XML_ID
+     */
     public function sinchronize(){
 
         $this->updateProps( $this->getTovarProps(), $this->tovarIbId); // проверка и дополнение необходимых св-в ИБ товаров
