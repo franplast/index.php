@@ -1,4 +1,8 @@
 <?
+//$_POST['need'] варианты запроса
+//i_f поля инфоблока
+//i_p свойства инфоблока
+//s_p свойства предложений
 header("Content-type: application/json; charset=utf-8");
 include_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 use Bitrix\Catalog\CatalogIblockTable;
@@ -20,23 +24,19 @@ $arResultSKU = $iblockIterator->fetch();
 $id_sky = $arResultSKU["IBLOCK_ID"];
 
 if(!isset($NEED)){
-    $ib_field = getField($IBLOCK_ID);
-    $ib_prop = getProp($IBLOCK_ID);
-    $sku_prop = getProp($id_sky);
+    $arResult['STATUS'] = 0;
 }
 else {
-    foreach ($NEED as $val){
-        switch ($val){
-            case "i_f"://поля инфоблока
-                $ib_field = getField($id_info);
-                break;
-            case "i_p"://свойства инфоблока
-                $ib_prop = getProp($id_info);
-                break;
-            case  "s_p"://свойства предложений
-                $sku_prop = getProp($id_sky);
-                break;
-        }
+    switch ($val){
+        case "i_f"://поля инфоблока
+            $ib_field = getField($id_info);
+            break;
+        case "i_p"://свойства инфоблока
+            $ib_prop = getProp($id_info);
+            break;
+        case  "s_p"://свойства предложений
+            $sku_prop = getProp($id_sky);
+            break;
     }
 }
 if($ib_field){
