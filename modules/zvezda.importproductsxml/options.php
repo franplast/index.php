@@ -130,20 +130,10 @@ if(!$USER->IsAdmin())
                 <h3 class="step__title">ШАГ 2: Выбор разделов и ИБ куда грузить</h3>
 
                 <div class="content-block">
-                    ВАЖНО!!! Товары для несопоставленных разделов загружаться не будут
-                    НО если раздел не настроен, но раздел выше настрон, будут взяты его натройки
-                    <?/*
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Раздел в файле</th>
-                            <th>Загружать в</th>
-                        </tr>
-                        </thead>
-                        <tbody id="sections" class="sections">
-                        </tbody>
-                    </table>
-*/?>
+                    <div class="warning">
+                        ВАЖНО!!! Товары для несопоставленных разделов загружаться не будут
+                        НО если раздел не настроен, но раздел выше настрон, будут взяты его натройки
+                    </div>
                     <div id="sections" class="sections">
                         <ul class="death-level-1">
                         </ul>
@@ -160,18 +150,14 @@ if(!$USER->IsAdmin())
                 <h3 class="step__title">ШАГ 3: Сопставление св-в</h3>
 
                 <div class="content-block">
-                   <?/* <table>
-                        <thead>
-                        <tr>
-                            <th>Св-во в файле</th>
-                            <th>Записывать в...</th>
-                        </tr>
-                        </thead>
-                        <tbody id="poperties" class="poperties">
-                        </tbody>
-                    </table>
-*/?>
-                    <ul id="" class="">
+                    <div class="warning">
+                        Вам нужно повторить сопоставление св-в и полей для каждого выбранноо ИБ и при необходимости для SKU<br>
+                        Поля - это стандартные св-ва элементов битрикса, они перечислены на вкладке "Поля" в настройках ИБ<br>
+                        Св-ва - это созданные вручную дополнительные св-ва, они перечислены на вкладке "Свойства" в настройках ИБ
+                    </div>
+
+                    <ul id="properties" class="properties">
+
                     </ul>
 
 
@@ -236,70 +222,43 @@ if(!$USER->IsAdmin())
 
         afterStepSections();
         beforeStepProps();
-        // beforeStepProperties(next_step);
-        //
-        // current_step.find('.content-block').hide();
-        // next_step.find('.content-block').show();
-
-    });
-
-    //$('')
-    function showSubsections(){
-
-    }
-
-    $('.button.prev').on('click', function () {
-        let current_step = $(this).closest('.step');
-        let prev_step = current_step.prev('.step');
-        // let action = prev_step.attr('data-action');
-
-        current_step.removeClass('active');
-        prev_step.addClass('active');
-
-        // if( action == "set_sections" )
-        // {
-        //     showSectionsFromFile();
-        // }
+        current_step.find('.content-block').hide();
+        next_step.find('.content-block').show();
     });
 
     $('#sections').on( 'click', '.js_addlevel', function(){
-        let container = $(this).siblings('.show_select');
-        let parent = container.parent();
+        let container = $(this).closest('.bind');
+        let container_select = container.find('.show_select');
+        let container_path = container.find('.path');
+        let path_cnt =  container_path.find('span').length;
         let iblock_id = "";
         let section_id = "";
-        let select_container;
+        if( path_cnt > 0  )
+            iblock_id = container_path.find('span').filter(':first').attr('data-id');
+        if( path_cnt > 1 )
+            section_id = container_path.find('span').filter(':last').attr('data-id');
 
-        container.prepend('<select></select><div class="button js_apply">v</div><div class="button button-red js_breack">x</div>');
+        $(this).remove();
+        container_select.append('<select></select><div class="button js_apply">v</div><div class="button button-red js_breack">x</div>');
+        showSectionsFromIblock(container_select.find('select'), iblock_id, section_id);
 
-        showSectionsFromIblock(container.find('select') , iblock_id, section_id);
-
-        // // console.log(parent);
-        // if( parent.attr('data-iblock-id') != undefined ){
-        //     iblock_id = parent.attr('data-iblock-id');
-        // }
-        // if( parent.attr('data-section-id') != undefined ){
-        //     section_id = parent.attr('data-section-id');
-        //
-        // }
-        //
-        // $(this).detach();
-        // container.append('<div class="js_applay">applay</div>');
     });
 
-
     $('#sections').on( 'click', '.js_apply', function(){
-        let container = $(this).closest('.show_select');
+        let container = $(this).closest('.bind');
         let id = container.find('select').val();
         let name = container.find('select option:selected').text();
 
-        container.empty();
+        container.find('.show_select').empty();
 
-        container.append('/<span data-id="'+id+'">'+name+'</span>/');
+        container.find('.path').append('/<span data-id="'+id+'">'+name+'</span>');
+        container.append('<a class="js_addlevel" href="#">+</a>');
     });
 
-    $('.show_select').on( 'click', '.js_breack', function(){
-        let container = $(this).closest('.show_select');
-        container.empty();
+    $('#sections').on( 'click', '.js_breack', function(){
+        let container = $(this).closest('.bind');
+        container.find('.show_select').empty();
+        container.append('<a class="js_addlevel" href="#">+</a>');
     });
 
     $('#sections').on( 'click', '.js_remove', function(){
@@ -321,6 +280,88 @@ if(!$USER->IsAdmin())
     $('#sections').on('click', '.show-sublevel', function () {
         $(this).siblings('ul').slideToggle();
     })
+
+
+    function afterStepGetFile( file_path ){
+        file_path_remote = file_path;
+        //Показываем плейсхолдер, ждём проверки доступности файла
+        // Если ок - продолжаем, если нет - возвращаем на первый шаг
+        // здесь проверяем доступность файла, сохраняем файл к нам, записываем ссылку на него для передачи др методам, пока не доавляем во временную таблицу - это после старта
+        // file_path_local; - сюда записываем путь к скачанному файлу, пока дублируем удалённый
+        file_path_local = file_path_remote;
+    }
+
+    function beforeStepSections(contecst){
+        showSectionsFromFile( contecst ); // Сюда вставляем блок шага
+
+    }
+
+    function afterStepSections(){
+        // Здесь можно сохранить состояние связей, или можно отложить это на конец.
+        // Собираем список использованных ИБ
+        let paths = $('#sections').find('.path');
+        relations_iblocks = [];
+        paths.each(function( index, value) {
+            let iblock_id = $(value).find('span:first').attr('data-id')
+            if( iblock_id !== undefined )
+                relations_iblocks.push(iblock_id);
+        });
+        console.log(relations_iblocks);
+
+        $('#relations_iblocks').remove();
+        addInfo( '<div id="relations_iblocks" class="relations_iblocks"><h4>Для загрузки выбраны ИБ-ки</h4><ul class="content"></ul></div>'  );
+        $.ajax({
+            method: "POST",
+            url: module_path + "beforeStepProps.php",
+            dataType: 'json',
+            data:{iblock_ids:relations_iblocks},
+            success: function(data){
+                $.each(data['ITEMS'], function(index,value){
+                    addInfo( '<li>'+value['NAME']+' ('+value['NAME']+')</lI>', $('#relations_iblocks').find('.content') );
+                });
+            },
+            error: function(response){
+                // $("#result #error").show();
+                // setTimeout('$("#result #error").hide()', 5000);
+            }
+        })
+    }
+
+    function beforeStepProps(){
+
+        if( file_path_local != '' ){
+            $.ajax({
+                method: "POST",
+                url: module_path + "ajaxGetPropsFromFile.php",
+                dataType: 'json',
+                // context: context,
+                data:{file_path:file_path_local},
+                success: function(data){
+                    // console.log(data['SECTIONS']);
+                    // TODO отработать статус data['STATUS']
+                    // TODO Показать сообщение data['MASSAGE']
+                    // TODO визуализировать многоуровневость
+                    let container = $('#properties').find('ul') ;
+                    let tmp_death_levl = 1;
+                    $.each( data['SECTIONS'], function(index,value){
+
+                        container.append('<li><span>' + value['NAME'] + '</span></li>');
+                    });
+                    $('#properties').find('ul').siblings('span').addClass('show-sublevel');
+                },
+                error: function(response){
+                    // $("#result #error").show();
+                    // setTimeout('$("#result #error").hide()', 5000);
+                }
+            })
+        }
+
+    }
+
+    function afterStepProps(){
+
+    }
+
     function addInfo( information, target = false ){
         let container = $('#summ-info');
         if( target === false ) target = container;
@@ -366,76 +407,12 @@ if(!$USER->IsAdmin())
         return file_remote_status;
     }
 
-    function afterStepGetFile( file_path ){
-        file_path_remote = file_path;
-        //Показываем плейсхолдер, ждём проверки доступности файла
-        // Если ок - продолжаем, если нет - возвращаем на первый шаг
-        // здесь проверяем доступность файла, сохраняем файл к нам, записываем ссылку на него для передачи др методам, пока не доавляем во временную таблицу - это после старта
-        // file_path_local; - сюда записываем путь к скачанному файлу, пока дублируем удалённый
-        file_path_local = file_path_remote;
-    }
-
-    function beforeStepSections(contecst){
-        showSectionsFromFile( contecst ); // Сюда вставляем блок шага
-
-    }
-
-    function afterStepSections(){
-        // Здесь можно сохранить состояние связей, или можно отложить это на конец.
-        // Собираем список использованных ИБ
-        relations_iblocks = [];
-        $('#sections').find('[data-iblock-id]').each(function( index, value) {
-           relations_iblocks.push($(value).data('iblockId'));
-        });
-    }
-
-    function beforeStepProps(){
-        addInfo( '<div id="relations_iblocks" class="relations_iblocks"><h4>Для загрузки выбраны ИБ-ки</h4><ul class="content"></ul></div>' );
-        $.ajax({
-            method: "POST",
-            url: module_path + "beforeStepProps.php",
-            dataType: 'json',
-            data:{iblock_ids:relations_iblocks},
-            success: function(data){
-
-                $.each(data['ITEMS'], function(index,value){
-                    addInfo( '<li>'+value['NAME']+' ('+value['NAME']+')</lI>', $('#relations_iblocks').find('.content') );
-                });
-            },
-            error: function(response){
-                // $("#result #error").show();
-                // setTimeout('$("#result #error").hide()', 5000);
-            }
-        })
-    }
-
-    function afterStepProps(){
-
-    }
-
     function remove( context ) {
         context.nextAll('td').detach();
         addLevel( context.closest('tr') );
         context.find('.js_remove').detach();
         container.append('<div class="js_applay">applay</div>');
 
-    }
-
-    function applay( context ) {
-
-        let value = context.find('select').val();
-        // let name = context.find('select').text();
-        if( !context.parent().attr('data-iblock-id') ){
-            context.parent().attr('data-iblock-id', value);
-        }
-        else{
-            context.parent().attr('data-section-id', value);
-        }
-
-        context.find('.js_applay').remove();
-        context.find('.select').attr('disabled', 'disabled');
-        context.append('<div class="js_remove">remove</div>');
-        addLevel( context.closest('tr') );
     }
 
     function addLevel( context ){
@@ -486,7 +463,7 @@ if(!$USER->IsAdmin())
                             container = container.closest('.death-level-' + value['DEPTH_LEVEL']);
                             tmp_death_levl = value['DEPTH_LEVEL'];
                         }
-                        container.append('<li class="death-'  + tmp_death_levl + '" data-filesectionid="'+value['ID']+'"><span>' + value['NAME'] + '</span> <div class="bind"><div class="show_select"></div><a class="js_addlevel" href="#">+</a></div></li>');
+                        container.append('<li class="death-'  + tmp_death_levl + '" data-filesectionid="'+value['ID']+'"><span>' + value['NAME'] + '</span> <div class="bind"><div class="path"></div><div class="show_select"></div><a class="js_addlevel" href="#">+</a></div></li>');
                     });
                     $('#sections').find('ul').siblings('span').addClass('show-sublevel');
                 },
