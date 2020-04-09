@@ -376,10 +376,10 @@ if(!$USER->IsAdmin())
                     let container_props = container.find('.props');
 
                    $.each( data['ITEMS']['FIELDS'], function(index,value){
-                       container_fields.append('<li><span>' + value + '</span></li>');
+                       container_fields.append('<li><div class="prop-name">' + value + '</div><div class="bind"><a href="#" class="field-product">Связать c полем товара</a><br><a href="#" class="prop-product">Связать со св-вом товара</a><br><a href="#" class="prop-sku">Связать со св-вом SKU</a><br></div></li>');
                     });
                    $.each( data['ITEMS']['PROPS'], function(index,value){
-                        container_props.append('<li><span>' + value + '</span></li>');
+                        container_props.append('<li><div class="prop-name">' + value + '</div><div class="bind"><a href="#" class="field-product">Связать c полем товара</a><br><a href="#" class="prop-product">Связать со св-вом товара</a><br><a href="#" class="prop-sku">Связать со св-вом SKU</a><br></div></li>');
                     });
                     // $('#properties').find('ul').siblings('span').addClass('show-sublevel');
                 },
