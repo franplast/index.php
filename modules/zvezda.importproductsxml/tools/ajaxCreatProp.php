@@ -1,8 +1,8 @@
 <?
-//$_POST['need'] варианты запроса
-//i_f поля инфоблока
-//i_p свойства инфоблока
-//s_p свойства предложений
+//$_POST["NAME"];//название поля
+//$_POST["CODE"];//код поля
+//$_POST["ANYWAY"];//если есть то все равно создать
+//$_POST['iblock'];//инфоблок id
 header("Content-type: application/json; charset=utf-8");
 include_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 use Bitrix\Catalog\CatalogIblockTable;
